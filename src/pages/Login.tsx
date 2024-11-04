@@ -8,10 +8,6 @@ export const Login = () => {
     e.preventDefault()
   }
 
-  const teste = () => {
-    alert('Teste')
-  }
-
   return (
     <div className="flex w-full h-screen">
       <div className="w-[70%] bg-[url('src/assets/img/banner-login.jpg')] bg-cover bg-no-repeat"></div>
@@ -35,11 +31,11 @@ export const Login = () => {
               <div className="flex items-center">
                 <input type="checkbox" className="mr-2"/>
                 <label htmlFor="connected" className="text-gray-500">
-                  Manter conectado
+                  Continuar conectado
                 </label>
               </div>
               <div className='text-center'>
-                <MainButton type="submit" onClick={teste}>
+                <MainButton type="submit">
                   Login
                 </MainButton>
               </div>
