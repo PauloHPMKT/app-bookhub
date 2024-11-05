@@ -35,7 +35,7 @@ export const Login = () => {
                 </label>
               </div>
               <div className='text-center'>
-                <MainButton type="submit">
+                <MainButton type="submit" className="h-10">
                   Login
                 </MainButton>
               </div>
