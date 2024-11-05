@@ -1,12 +1,15 @@
+import { useState } from "react";
+import { FiX } from "react-icons/fi";
 import { IoMdTrash } from "react-icons/io";
 import { IoAlertCircle } from "react-icons/io5";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
 import { MainButton } from "../../components/MainButton";
 import { CardModalAction } from "../../components/CardAction";
 import { Overlay } from "../../components/Overlay";
+import { BaseInput } from "../../components/BaseInput";
+import { useStyles } from "../../hooks/useStyles";
 import emptyBanner from "../../assets/img/funcionarios.png";
-import { FiX } from "react-icons/fi";
-import { useState } from "react";
+
 
 export const Employees = () => {
   const employees = [
@@ -84,9 +87,25 @@ export const Employees = () => {
   ];
 
   const [isRemoveAllBaseOpen, setIsRemoveAllBaseOpen] = useState(false);
+  const [showInputPassword, setShowInputPassword] = useState(false);
+
+  const classes = useStyles();
 
   const handleRemoveAllBaseModal = () => {
+    if (showInputPassword) {
+      setShowInputPassword(false);
+      setIsRemoveAllBaseOpen(!isRemoveAllBaseOpen);
+      return;
+    }
     setIsRemoveAllBaseOpen(!isRemoveAllBaseOpen);
+  }
+
+  const chooseAction = () => {
+    if (!showInputPassword) {
+      setShowInputPassword(true);
+      return;
+    }
+    alert('Base excluída com sucesso');
   }
 
   return (
@@ -96,6 +115,7 @@ export const Employees = () => {
           <p className="text-[20px] ml-20 text-white">Tabela de Funcionários</p>
         </div>
         <div className="flex gap-2">
+          {/* tem que colocar uma label dizendo o que faz cada botão */}
           <MainButton className="h-8 bg-[#FDFB00] text-[#121212] flex justify-center items-center p-4">
             <MdOutlinePersonAddAlt size={20} />
           </MainButton>
@@ -183,15 +203,25 @@ export const Employees = () => {
               <p className="mb-3 text-[14px]">Ao confirmar você excluirá toda a base!</p>
             </CardModalAction.Title>
             <div className="border-t-2"></div>
+            <div className={`mt-8 ${
+              showInputPassword 
+                ? classes.sofitShowVisibility
+                : classes.sofitHideVisibility
+              }`}>
+              <BaseInput 
+                type="password"
+                placeholder="Digite sua senha para confirmar"
+              />
+            </div>
             <CardModalAction.Actions className="pt-8">
               <MainButton onClick={handleRemoveAllBaseModal}>
                 Cancelar
               </MainButton>
               <MainButton 
-                onClick={() => console.log('Excluir base')}
+                onClick={chooseAction}
                 className="bg-[#FDFB00] text-[#121212] h-10 flex items-center font-semibold"
               >
-                Sim
+                {showInputPassword ? 'Confirmar' : 'Sim'}
               </MainButton>
             </CardModalAction.Actions>
           </CardModalAction.Root>      
